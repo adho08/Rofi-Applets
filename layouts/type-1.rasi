@@ -1,9 +1,10 @@
 /*****----- Configuration -----*****/
 configuration {
-    modi:                       "drun";
+    modi:                       "dmenu";
     show-icons:                 true;
     display-drun:               " ";
     drun-display-format:        "{name}";
+    case-insensitive: 		true;
 }
 
 /*****----- Global Properties -----*****/

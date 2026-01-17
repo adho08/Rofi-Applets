@@ -9,6 +9,9 @@ THEME="$DIR/../layouts/type-1.rasi"
 # Bluetooth information
 bluetooth_enabled=$(bluetoothctl show | grep -q "Powered: yes" && echo "yes" || echo "no")
 devices_connected=$(bluetoothctl devices Connected | cut -d ' ' -f 3-)
+if [[ -z "$devices_connected" ]] ; then
+    devices_connected="None"
+fi
 
 # Theme Elements
 PROMPT="Bluetooth"
@@ -32,13 +35,13 @@ fi
 open_settings_gui="blueman-manager"
 
 # Options
-option_1="  " # List paired/known devices
+option_1=" " # List paired/known devices
 option_2="󱉶" # Scan available devices
 
 if [[ "$bluetooth_enabled" == "yes" ]] ; then
-    option_3="󰂲 " # Wifi off
+    option_3="󰂲" # Wifi off
 else
-    option_3=" " # Wifi on
+    option_3="" # Wifi on
 fi
 
 option_4=" "
@@ -49,7 +52,9 @@ rofi_cmd() {
 		-dmenu \
 		-mesg "$MESG" \
 		-p "$PROMPT" \
-		-theme "$THEME"
+		-theme "$THEME" \
+		-markup-rows \
+		-i
 }
 
 # Pass variables to rofi dmenu

@@ -10,7 +10,8 @@ devices=$(bluetoothctl devices | grep Device | cut -d ' ' -f 3-)
 rofi_cmd() {
 	rofi 	-dmenu \
 		-p "$PROMPT" \
-		-theme "$THEME"
+		-theme "$THEME" \
+		-i
 }
 
 # Pass variables to rofi dmenu

@@ -29,7 +29,8 @@ rofi_cmd() {
 	rofi 	-dmenu \
 		-p "$PROMPT" \
 		-markup-rows \
-		-theme "$THEME"
+		-theme "$THEME" \
+		-i
 }
 
 # Pass variables to rofi dmenu
