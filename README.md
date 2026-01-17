@@ -15,3 +15,5 @@ A collection of rofi applets to handle basic functionality in a linux system.
 - [ ] Create Audio rofi applet
 - [ ] Create installation guide in README.md
 - [ ] Make screenshots
+- [ ] Link to my dotfiles to show waybar example
+- [ ] Rewrite bins to run wofi instead of rofi if in wayland
