@@ -70,10 +70,16 @@ device="$1"
 device_name=$(echo "$device" | cut -d ' ' -f 3-)
 mac=$(echo "$device" | cut -d ' ' -f 2)
 icon=$(bluetoothctl info "$mac" | grep "Icon:" | awk '{print $2}') # what type of device (headset, phone, ...)
+battery=$(bluetoothctl info "$mac" | grep -oP 'Battery Percentage:.*\(\K[0-9]+')
+
 
 # Theme Elements
 PROMPT="$device_name"
 MESG="Type: $icon"
+if [[ ! -z $battery ]]; then
+	MESG="$MESG
+Battery: $battery%"
+fi
 # set font manually because in .rasi the font size is 40 (meant for icons)
 OPTIONS_FONT="JetBrains Mono Nerd Font 12"
 LIST_COL='3'
