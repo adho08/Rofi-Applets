@@ -1,0 +1,16 @@
+* {
+    background:     #000000FF;
+    background-alt: #282839FF;
+    foreground:     #FFFFFFFF;
+    selected:       #FFFFFFFF;
+    active:         #FFFFFFFF;
+    urgent:         #717171FF;
+}
+
+* {
+    font: "JetBrains Mono Nerd Font 12";
+}
+
+* {
+    border-radius: 20;
+}
