@@ -4,6 +4,8 @@
 DIR="$HOME/.config/rofi/custom/bin"
 THEME="$DIR/../layouts/type-1.rasi"
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 # Theme Elements
 PROMPT='Waybar Modules'
 
@@ -11,12 +13,12 @@ LIST_COL='6'
 LIST_ROW='1'
 
 # CMDs (add your apps here)
-bluetooth_cmd="rofi-bluetooth"
+bluetooth_cmd="$SCRIPT_DIR/bluetooth.sh"
 audio_cmd=''
-network_cmd="$HOME/.config/rofi/custom/bin/network.sh"
-backlight_cmd="$HOME/.config/rofi/custom/bin/backlight.sh"
-battery_cmd="$HOME/.config/rofi/custom/bin/battery.sh"
-powermenu_cmd="$HOME/.config/rofi/custom/bin/powermenu.sh"
+network_cmd="$SCRIPT_DIR/network.sh"
+backlight_cmd="$SCRIPT_DIR/backlight.sh"
+battery_cmd="$SCRIPT_DIR/battery.sh"
+powermenu_cmd="$SCRIPT_DIR/powermenu.sh"
 
 # Options   
 option_1="" # Bluetooth
@@ -34,7 +36,7 @@ rofi_cmd() {
 		-dmenu \
 		-p "$PROMPT" \
 		-markup-rows \
-		-theme ${THEME}
+		-theme "$THEME"
 }
 
 # Pass variables to rofi dmenu
