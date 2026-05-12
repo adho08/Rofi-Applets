@@ -6,11 +6,18 @@ THEME="$DIR/../layouts/type-1.rasi"
 
 # Backlight information
 brightness="$(brightnessctl -m | cut -d',' -f4 | tr -d '%')"
-monitor="$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')"
+
+if [[ "$DESKTOP_SESSION" == 'hyprland' ]]; then
+	monitor="$(hyprctl monitors | grep Monitor | awk '{print $2}')"
+else
+	monitor="$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')"
+fi
+
 kdb_backlight="$(brightnessctl --device='*kbd_backlight' -m | cut -d',' -f4 | tr -d '%')"
-temp=$(pgrep -a gammastep | grep -oP '\-O \K[0-9]+')
-if [[ -n "$temp" ]]; then
-    filter_percent=$(bc <<< "scale=0; (6500 - $temp) * 100 / 6500")
+temperature=$(pgrep -a gammastep | grep -oP '\-O \K[0-9]+')
+
+if [[ -n "$temperature" ]]; then
+    filter_percent=$(bc <<< "scale=0; (6500 - $temperature) * 100 / 6500")
     bluelight_filter="${filter_percent}"
 else
     bluelight_filter="0"
@@ -28,10 +35,17 @@ LIST_ROW='1'
 # Commands
 if [[ "$bluelight_filter" -ge 50 ]]; then
 	# Reset blue light filter to 0% (6500K)
-	set_bluelight_filter="pkill gammastep; gammastep -O 6500 &"
+	bluelight_filter="6500"
 else
 	# Set it to 50% (3250K)
-	set_bluelight_filter="pkill gammastep; gammastep -O 3250 &"
+	bluelight_filter="3250"
+fi
+
+
+if [[ "$DESKTOP_SESSION" == 'hyprland' ]]; then
+	set_bluelight_filter="pkill hyprsunset; hyprsunset -t $bluelight_filter &"
+else
+	set_bluelight_filter="pkill gammastep; gammastep -O $bluelight_filter &"
 fi
 
 if [[ "$(brightnessctl --device='*kbd_backlight' -m | cut -d',' -f4 | tr -d '%')" -ge 50 ]]; then

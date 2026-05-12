@@ -1,11 +1,13 @@
-* {
-    background:     #000000FF;
-    background-alt: #282839FF;
-    foreground:     #FFFFFFFF;
-    selected:       #FFFFFFFF;
-    active:         #FFFFFFFF;
-    urgent:         #717171FF;
-}
+@import "colors.rasi"
+
+// * {
+//     background:     #000000FF;
+//     background-alt: #282839FF;
+//     foreground:     #FFFFFFFF;
+//     selected:       #FFFFFFFF;
+//     active:         #FFFFFFFF;
+//     urgent:         #717171FF;
+// }
 
 * {
     font: "JetBrains Mono Nerd Font Mono 12";
